@@ -7,7 +7,6 @@ function sumNumbers() {
   }
 }
 
-
 const sum = sumNumbers();
 
 console.log(sum(4)); // 4
