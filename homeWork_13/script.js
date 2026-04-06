@@ -1,53 +1,35 @@
 const form = document.querySelector("form");
-const inputName = document.querySelector("#exampleFormControlInput1");
-const inputMassage = document.querySelector("#exampleFormControlTextarea1");
-const inputPhone = document.querySelector("#exampleFormControlInput2");
-const inputEmail = document.querySelector("#exampleFormControlInput3");
 
-const namePattern = /^[a-z]{2,}$/i;
-const massagePattern = /^.{5,}$/;
-const phonePattern = /^\+380\d{9}$/;
-const emailPattern = /^[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,}$/i;
+const checkValue = (input, regExp) => {
+  if (!regExp.test(input.value)) {
+    input.nextElementSibling.classList.add("active");
+    return false;
+  } else {
+    input.nextElementSibling.classList.remove("active");
+    return true;
+  }
+};
 
-form.addEventListener("submit", (event) => {
+const validateValue = (event) => {
   event.preventDefault();
-  let error = 0;
 
-  const regExpName = namePattern.test(inputName.value);
-  const regExpMassage = massagePattern.test(inputMassage.value);
-  const regExpPhone = phonePattern.test(inputPhone.value);
-  const regExpEmail = emailPattern.test(inputEmail.value);
+  const inputs = document.querySelectorAll(".form-control");
 
-  if (!regExpName) {
-    inputName.nextElementSibling.classList.add("active");
-    error++;
-  } else {
-    inputName.nextElementSibling.classList.remove("active");
-  };
-  if (!regExpMassage) {
-    inputMassage.nextElementSibling.classList.add("active");
-    error++;
-  } else {
-    inputMassage.nextElementSibling.classList.remove("active");
-  }
-  if (!regExpPhone) {
-    inputPhone.nextElementSibling.classList.add("active");
-    error++;
-  } else {
-    inputPhone.nextElementSibling.classList.remove("active");
-  }
-  if (!regExpEmail) {
-    inputEmail.nextElementSibling.classList.add("active");
-    error++;
-  } else {
-    inputEmail.nextElementSibling.classList.remove("active");
-  }
+  const isNameValid = checkValue(inputs[0], /^[a-z]{2,}$/i);
+  const isPassValid = checkValue(inputs[1], /^.{5,}$/);
+  const isPhoneValid = checkValue(inputs[2], /^\+380\d{9}$/);
+  const isEmailValid = checkValue(inputs[3], /^[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,}$/i);
 
-  if (error === 0) {
+  if (isNameValid && isPassValid && isPhoneValid && isEmailValid) {
     const formData = new FormData(event.target);
     const formObj = {};
 
-    formData.forEach((value, key) => (formObj[key] = value));
+    formData.forEach((value, key) => {
+      formObj[key] = value;
+    });
+
     console.log(formObj);
   }
-});
+};
+
+form.addEventListener("submit", validateValue);
