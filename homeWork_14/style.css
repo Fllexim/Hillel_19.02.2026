@@ -38,8 +38,8 @@ body {
 }
 
 .inactive {
-  opacity: 0;             /* кнопка прозрачная */
-  pointer-events: none;   /* чтобы по ней нельзя было кликать */
+  opacity: 0;  
+  pointer-events: none;  
 }
 
 .dots-container {
