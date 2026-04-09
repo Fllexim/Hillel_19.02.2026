@@ -1,0 +1,63 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.slide {
+  max-width: 600px;
+}
+
+.slide img {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.btn-control {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.btn-control:hover {
+  transform: scale(1.1);
+}
+
+.inactive {
+  opacity: 0;             /* кнопка прозрачная */
+  pointer-events: none;   /* чтобы по ней нельзя было кликать */
+}
+
+.dots-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #c0c0c0;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.dot.active {
+  background: #007bff;
+}
