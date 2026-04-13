@@ -9,12 +9,14 @@ const list = document.querySelector("ul");
 let arrayTodos = JSON.parse(localStorage.getItem("arrayTodos")) || [];
 
 function saveTodos() {
-    localStorage.setItem("arrayTodos", JSON.stringify(arrayTodos));
+  localStorage.setItem("arrayTodos", JSON.stringify(arrayTodos));
 }
 
 // Add Items in DOM
 
 function addItemsInDOM() {
+  list.innerHTML = "";
+
   arrayTodos.forEach((item) => {
     const li = document.createElement("li");
     const input = document.createElement("input");
@@ -49,7 +51,6 @@ function addInArrayTodos(value) {
   };
 
   arrayTodos.push(newItem);
-  list.innerHTML = "";
 }
 
 // Event 'submit' for new Item
@@ -71,13 +72,11 @@ form.addEventListener("submit", (event) => {
 
 list.addEventListener("change", (event) => {
   if (event.target.type === "checkbox") {
-    const checkboxValue = event.target.checked;
-
     const li = event.target.closest("li");
     const spanText = li.querySelector("span");
 
     const id = Number(li.dataset.id);
-    const item = arrayTodos.find(item => item.id === id);
+    const item = arrayTodos.find((item) => item.id === id);
     item.isDone = event.target.checked;
     saveTodos();
 
@@ -88,11 +87,11 @@ list.addEventListener("change", (event) => {
 // Button delete
 
 list.addEventListener("click", (event) => {
-  if (event.target.tagName === "BUTTON") {
+  if (event.target.classList.contains("todo-item__delete")) {
     const li = event.target.closest("li");
     const id = Number(li.dataset.id);
 
-    arrayTodos = arrayTodos.filter(item => item.id !== id);
+    arrayTodos = arrayTodos.filter((item) => item.id !== id);
     saveTodos();
     li.remove();
   }
