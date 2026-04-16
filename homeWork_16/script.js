@@ -35,24 +35,31 @@ class StudentProperties {
     return avgGrades;
   }
 
-  summary() {
-    if (!this.attendance.length) return;
-
-    const avgGrades = this.avgGrades();
-
+  avgAttendance() {
     const presentCount = this.attendance.filter(Boolean);
     const avgAttendance = presentCount.length / this.attendanceIndex;
 
-    if(avgGrades > 90 && avgAttendance > 0.9) {
-      return console.log("Молодець");
+    return avgAttendance;
+  }
+
+  summary() {
+    if (!this.attendanceIndex) return "Немає даних";
+
+    const avgGrades = this.avgGrades();
+    const avgAttendance = this.avgAttendance();
+
+    if (avgGrades > 90 && avgAttendance > 0.9) {
+      return "Молодець";
     }
-    if(avgGrades > 90 || avgAttendance > 0.9) {
-      return console.log("Добре, але можна краще");
+    if (avgGrades > 90 || avgAttendance > 0.9) {
+      return "Добре, але можна краще";
     }
 
-    return console.log("Редиска");
-
+    return "Редиска";
   }
 }
 
 const student1 = new StudentProperties("Anton", "Galchihin", 2000);
+const student2 = new StudentProperties("Nastia", "Shportko", 2001);
+const student3 = new StudentProperties("Andriy", "Arefev", 2003);
+
