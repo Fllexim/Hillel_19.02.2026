@@ -51,7 +51,7 @@ function addInArrayTodos(value) {
   };
 
   arrayTodos.push(newItem);
-}
+};
 
 // Event 'submit' for new Item
 
@@ -87,7 +87,7 @@ list.addEventListener("change", (event) => {
 // Button delete
 
 list.addEventListener("click", (event) => {
-  if (event.target.classList.contains("todo-item__delete")) {
+  if (event.target.tagName === "BUTTON") {
     const li = event.target.closest("li");
     const id = Number(li.dataset.id);
 

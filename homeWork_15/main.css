@@ -53,6 +53,7 @@ h1, h2 {
     align-items: center;
     margin-bottom: 10px;
 }
+
 .todo-item--checked {
     text-decoration: line-through;
     color: green;
