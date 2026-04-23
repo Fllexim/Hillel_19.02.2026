@@ -1,0 +1,23 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column  ;
+}
+
+button {
+    width: 100px;
+    height: 50px;
+    color: dark;
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: 3px;
+    border-radius: 10px;
+}
