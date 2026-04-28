@@ -1,0 +1,92 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+main {
+  width: 360px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 15px;
+  padding: 20px;
+  color: rgb(0, 0, 0);
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  height: 200px;
+  box-shadow: 4px 4px 5px rgb(96, 96, 96);
+  letter-spacing: 1px;
+}
+
+.weather {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-items: stretch;
+  height: 100%;
+}
+
+.first-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  opacity: 0.9;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.date {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.oclock {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.second-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; 
+
+}
+
+.icon {
+  width: 80px;
+  height: 80px;
+}
+
+.temp {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.feels-like {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+button {
+  border-radius: 6px;
+  width: 100%;
+  height: 45px;
+  border: none;
+  background: rgb(52, 52, 52);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 20px;
+}
+
+button:hover {
+  transform: translateY(-3px);
+}
