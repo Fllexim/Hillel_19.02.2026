@@ -1,13 +1,13 @@
 "use strict";
 
-const input = $(".form-control");
-const form = $("form");
-const list = $("ul");
-const taskModal = $("#taskModal");
+var input = $(".form-control");
+var form = $("form");
+var list = $("ul");
+var taskModal = $("#taskModal");
 
 // Array for LocalStorage
 
-let arrayTodos = JSON.parse(localStorage.getItem("arrayTodos")) || [];
+var arrayTodos = JSON.parse(localStorage.getItem("arrayTodos")) || [];
 function saveTodos() {
   localStorage.setItem("arrayTodos", JSON.stringify(arrayTodos));
 }
@@ -16,11 +16,11 @@ function saveTodos() {
 
 function addItemsInDOM() {
   list.html("");
-  arrayTodos.forEach(item => {
-    const li = $("<li>");
-    const checkbox = $("<input>");
-    const span = $("<span>");
-    const button = $("<button>");
+  arrayTodos.forEach(function (item) {
+    var li = $("<li>");
+    var checkbox = $("<input>");
+    var span = $("<span>");
+    var button = $("<button>");
     li.addClass("d-flex justify-content-between align-items-center mt-2 rounded-2 bg-light p-2");
     li.attr("data-id", item.id);
     checkbox.attr("type", "checkbox").prop("checked", item.isDone);
@@ -35,7 +35,7 @@ function addItemsInDOM() {
 // Add item in array
 
 function addInArrayTodos(value) {
-  const newItem = {
+  var newItem = {
     id: Date.now(),
     text: value,
     isDone: false
@@ -45,9 +45,9 @@ function addInArrayTodos(value) {
 
 // Event 'submit' for new Item
 
-form.on("submit", event => {
+form.on("submit", function (event) {
   event.preventDefault();
-  const value = input.val().trim();
+  var value = input.val().trim();
   if (!value) return;
   addInArrayTodos(value);
   addItemsInDOM();
@@ -58,9 +58,11 @@ form.on("submit", event => {
 // Checkbox
 
 function saveCheckbox(li) {
-  const spanText = li.find("span");
-  const id = li.data("id");
-  const item = arrayTodos.find(item => item.id === id);
+  var spanText = li.find("span");
+  var id = li.data("id");
+  var item = arrayTodos.find(function (item) {
+    return item.id === id;
+  });
   item.isDone = event.target.checked;
   saveTodos();
   spanText.toggleClass("text-decoration-line-through", event.target.checked);
@@ -69,8 +71,10 @@ function saveCheckbox(li) {
 // Button delete
 
 function deleteTask(li) {
-  const id = li.data("id");
-  arrayTodos = arrayTodos.filter(item => item.id !== id);
+  var id = li.data("id");
+  arrayTodos = arrayTodos.filter(function (item) {
+    return item.id !== id;
+  });
   saveTodos();
   li.remove();
 }
@@ -78,15 +82,15 @@ function deleteTask(li) {
 // Open openModa
 
 function openModal(li) {
-  const modal = new bootstrap.Modal(taskModal);
+  var modal = new bootstrap.Modal(taskModal);
   modal.show();
 }
 
 // ON list
 
-list.on("click", event => {
-  const target = $(event.target);
-  const li = target.closest("li");
+list.on("click", function (event) {
+  var target = $(event.target);
+  var li = target.closest("li");
   if (target.is("button")) {
     deleteTask(li);
     return;
