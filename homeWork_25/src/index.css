@@ -1,0 +1,10 @@
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+
+.emodji {
+  font-size: 55px;
+  transition: 0.3s;
+}
+
+.emodji:hover {
+  transform: scale(1.2);
+}
