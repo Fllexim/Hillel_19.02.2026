@@ -1,51 +1,41 @@
-import { Component } from "react";
-
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Section from "./components/Section";
-
 import "./index.css";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+function App() {
+  const savedVotes = JSON.parse(localStorage.getItem("votes"));
 
-    const savedVotes = JSON.parse(localStorage.getItem("votes"));
+  const [votes, setVotes] = useState(
+    savedVotes || {
+      sad: 0,
+      happy: 0,
+      love: 0,
+      shock: 0,
+      laugh: 0,
+    },
+  );
 
-    this.state = {
-      votes: savedVotes || {
-        sad: 0,
-        happy: 0,
-        love: 0,
-        shock: 0,
-        laugh: 0,
-      },
+  const [winner, setWinner] = useState("");
+  const [numberOfVotes, setNumberOfVotes] = useState(0);
+  const [showResults, setShowResults] = useState(false);
 
-      winner: "",
-      numberOfVotes: 0,
-      showResults: false,
-    };
-  }
-
-  addVote = (emoji) => {
-    this.setState({
-      votes: {
-        ...this.state.votes,
-        [emoji]: this.state.votes[emoji] + 1,
-      },
+  const addVote = (emoji) => {
+    setVotes({
+      ...votes,
+      [emoji]: votes[emoji] + 1,
     });
   };
 
-  showResults = () => {
-    const votes = this.state.votes;
-
+  const handleShowResults = () => {
     let maxVotes = 0;
-    let winner = "";
+    let winnerKey = "";
 
     for (let key in votes) {
       if (votes[key] > maxVotes) {
         maxVotes = votes[key];
-        winner = key;
+        winnerKey = key;
       }
     }
 
@@ -57,57 +47,45 @@ class App extends Component {
       laugh: "😄",
     };
 
-    this.setState({
-      winner: emojis[winner],
-      numberOfVotes: maxVotes,
-      showResults: true,
-    });
+    setWinner(emojis[winnerKey]);
+    setNumberOfVotes(maxVotes);
+    setShowResults(true);
   };
 
-  clearResults = () => {
+  const clearResults = () => {
     localStorage.removeItem("votes");
 
-    this.setState({
-      votes: {
-        sad: 0,
-        happy: 0,
-        love: 0,
-        shock: 0,
-        laugh: 0,
-      },
-
-      winner: "",
-      numberOfVotes: 0,
-
-      showResults: false,
+    setVotes({
+      sad: 0,
+      happy: 0,
+      love: 0,
+      shock: 0,
+      laugh: 0,
     });
+
+    setWinner("");
+    setNumberOfVotes(0);
+    setShowResults(false);
   };
 
-  componentDidUpdate() {
-    localStorage.setItem("votes", JSON.stringify(this.state.votes));
-  }
+  useEffect(() => {
+    localStorage.setItem("votes", JSON.stringify(votes));
+  }, [votes]);
 
-  render() {
-    return (
-      <div className="d-flex flex-column justify-content-center align-items-center w-50 mx-auto my-3">
-        <Header />
+  return (
+    <div className="d-flex flex-column justify-content-center align-items-center w-50 mx-auto my-3">
+      <Header />
 
-        <Main
-          votes={this.state.votes}
-          addVote={this.addVote}
-          showResults={this.showResults}
-          clearResults={this.clearResults}
-        />
+      <Main
+        votes={votes}
+        addVote={addVote}
+        showResults={handleShowResults}
+        clearResults={clearResults}
+      />
 
-        {this.state.showResults && (
-          <Section
-            winner={this.state.winner}
-            numberOfVotes={this.state.numberOfVotes}
-          />
-        )}
-      </div>
-    );
-  }
+      {showResults && <Section winner={winner} numberOfVotes={numberOfVotes} />}
+    </div>
+  );
 }
 
 export default App;
