@@ -1,6 +1,19 @@
 import { all } from "redux-saga/effects";
-import { watchTodos } from "./watchers";
+
+import {
+  watchLoadTodos,
+  watchAddTodo,
+  watchToggleTodo,
+  watchEditTodo,
+  watchClearTodos,
+} from "./watchers";
 
 export function* rootSaga() {
-  yield all([watchTodos()]);
+  yield all([
+    watchLoadTodos(),
+    watchAddTodo(),
+    watchToggleTodo(),
+    watchEditTodo(),
+    watchClearTodos(),
+  ]);
 }

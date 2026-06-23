@@ -4,11 +4,15 @@ import { todo } from "./slices/todoSlice";
 const API = "https://6a362f5a766b831960f8fc65.mockapi.io/todos";
 
 export function* loadTodosWorker() {
-  const response = yield call(fetch, API);
+  try {
+    const response = yield call(fetch, API);
 
-  const data = yield call([response, response.json]);
+    const data = yield call([response, response.json]);
 
-  yield put(todo.actions.setTodos(data));
+    yield put(todo.actions.setTodos(data));
+  } catch (error) {
+    console.error("Load todos error:", error);
+  }
 }
 
 export function* addTodoWorker(action) {
